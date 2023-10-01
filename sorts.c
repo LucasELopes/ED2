@@ -129,3 +129,9 @@ void maxHeapify(int *v, int size, int index) {
         maxHeapify(v, size, maior);
     }
 }
+
+void heapSort(int *v, int size) {
+    for(int i = (size-1)/2; i >= 0; i--) {
+        maxHeapify(v, size, i);
+    }
+}

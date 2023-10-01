@@ -13,5 +13,5 @@ void mergeSort(int *v, int ini, int fim);
 int particiona(int *v, int ini, int fim);
 void quickSort(int *v, int ini, int fim);
 void maxHeapify(int *v, int size, int index);
-
+void heapSort(int *v, int size);
 #endif

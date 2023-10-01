@@ -16,6 +16,6 @@ sorts.o: sorts.c sorts.h
 	gcc sorts.c -c $(FLAG)
 
 clean:
-	rm -r *.o teste
+	rm -r *.o *.out teste
 
 
