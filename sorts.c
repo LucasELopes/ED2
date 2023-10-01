@@ -85,27 +85,33 @@ void mergeSort(int *v, int ini, int fim) {
 }
 
 int particiona(int *v, int ini, int fim) {
-    int esq = ini, dir = fim, pivo = v[ini], aux;
-    
-    while(esq < dir) {
-        while(esq <= fim && v[esq] <= pivo)
-            esq++;
-        while(dir >= 0 && v[dir] > pivo)
-            dir--;
-        if(esq < dir) {
-            aux = v[esq];
-            v[esq] = v[dir];
-            v[dir] = aux;
+    int i = ini-1, pivo = v[fim];
+    int aux;
+
+    for(int j = ini; j < fim; j++) {
+        if(v[j] <= pivo) {
+            i++;
+            aux = v[i];
+            v[i] = v[j];
+            v[j] = aux;
         }
     }
-    v[ini] = v[dir];
-    v[dir] = pivo;
-    return dir;
+    v[fim] = v[i+1];
+    v[i+1] = pivo; 
+    return i+1;
+}
+
+int randParticion(int *v, int ini, int fim) {
+    int i = rand()%fim+1;
+    int aux = v[ini];
+    v[ini] = v[i];
+    v[i] = aux;
+    return particiona(v, ini, fim);
 }
 
 void quickSort(int *v, int ini, int fim) {
     if(ini < fim) {
-        int pivo = particiona(v, ini, fim);
+        int pivo = randParticion(v, ini, fim);
         quickSort(v, ini, pivo-1);
         quickSort(v, pivo+1, fim);
     }
@@ -116,17 +122,16 @@ void maxHeapify(int *v, int size, int index) {
     int r = index*2+2;
     int aux, maior;
 
-    if(l < size && v[l] > v[index]) 
+    if(l < size && v[l] > v[index])
         maior = l;
     else 
         maior = index;
-    if(r < size && v[r] > v[maior])
+    if(r < size && v[r] > v[index])
         maior = r;
-    if(maior != index) {
+    if(index != maior) {
         aux = v[maior];
         v[maior] = v[index];
         v[index] = aux;
-        maxHeapify(v, size, maior);
     }
 }
 
